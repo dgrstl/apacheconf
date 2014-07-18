@@ -1,0 +1,10 @@
+name          'abuxton-module_skeleton'
+version       '0.1.0'
+source        'github.com/abuxton/module_skeleton'
+author        'abuxton'
+license       'Apache 2.0'
+summary       'Module to deploy alternate module skeletons, garethr/puppet-module-skeleton as a base'
+description   'Module to deploy alternate module skeletons, garethr/puppet-module-skeleton as a base'
+project_page  'https://github.com/abuxton/module_skeleton'
+
+dependency 'puppetlabs/stdlib'
