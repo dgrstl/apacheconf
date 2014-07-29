@@ -3,15 +3,11 @@
 # This class is meant to be called from module_skeleton
 # It sets variables according to platform
 #
-class module_skeleton::params {
+class apacheconf::params {
   case $::osfamily {
-    'Debian': {
-      $package_name = 'module_skeleton'
-      $service_name = 'module_skeleton'
-    }
-    'RedHat', 'Amazon': {
-      $package_name = 'module_skeleton'
-      $service_name = 'module_skeleton'
+    'RedHat': {
+      $vtier  = 't1c1m1116'
+      $daemon = 'bce8'
     }
     default: {
       fail("${::operatingsystem} not supported")

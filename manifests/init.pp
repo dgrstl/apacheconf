@@ -7,15 +7,11 @@
 # [*sample_parameter*]
 #   Explanation of what this parameter affects and what it defaults to.
 #
-class module_skeleton (
-  $package_name = $module_skeleton::params::package_name,
-  $service_name = $module_skeleton::params::service_name,
-) inherits module_skeleton::params {
+class apacheconf (
+) inherits apacheconf::params {
 
-  # validate parameters here
-
-  class { 'module_skeleton::install': } ->
-  class { 'module_skeleton::config': } ~>
-  class { 'module_skeleton::service': } ->
-  Class['module_skeleton']
+  class { 'apacheconf::install': } ->
+  class { 'apacheconf::config': } ~>
+  class { 'apacheconf::service': } ->
+  Class['apacheconf']
 }

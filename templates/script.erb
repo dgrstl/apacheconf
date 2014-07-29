@@ -1,0 +1,45 @@
+######################################################################
+#!/usr/bin/sh
+######################################################################
+# Name: rc.PQA6
+# Description: Starts the Apache daemons for the Premier Application
+# Author: Bharat Pattem
+# Date: 02/28/2011
+# Arguments:  start,stop,graceful
+######################################################################
+
+OPTION=$1
+#DAEMON=Bce8
+DAEMON=<%=@daemon.capitalize%>
+#APACHE_HOME=/opt/app/t1c1w13/Apache
+APACHE_HOME=/opt/app/<%=@vtier-%>/Apache
+#APACHE_CONFIG=$APACHE_HOME/conf/Bce8/httpd_${DAEMON}.conf
+APACHE_CONFIG=$APACHE_HOME/conf/${DAEMON}/httpd_${DAEMON}.conf
+   case $OPTION in
+
+     start|START|stop|STOP|graceful|GRACEFUL|status|STATUS)
+
+          if [ -f $APACHE_CONFIG ]; then
+             $APACHE_HOME/bin/apachectl -f $APACHE_CONFIG -k $OPTION
+             if [ $? -ne 0 ]; then
+
+                echo "***ERROR*** ${DAEMON} httpd daemon did not start"
+                exit 1
+             fi
+
+          else
+
+             echo "***ERROR*** Missing $APACHE_CONFIG file"
+             exit 3
+
+          fi
+     ;;
+
+     *)
+         echo "Usage: rc.APACHE${DAEMON} [start], [stop], [status] or [graceful]"
+         exit 2
+     ;;
+
+   esac
+
+#fi

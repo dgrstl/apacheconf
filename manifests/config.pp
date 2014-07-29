@@ -1,6 +1,6 @@
-# == Class module_skeleton::config
+# == Class apacheconf::config
 #
-# This class is called from module_skeleton
+# This class is called from apacheconf
 #
-class module_skeleton::config {
+class apacheconf::config {
 }
