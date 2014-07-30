@@ -6,6 +6,8 @@ class apacheconf::install (
   $daemon   = hiera('apacheconf::install::daemon', undef),
   $source   = hiera('apacheconf::install::source', undef),
   $version  = hiera('apacheconf::install::version', undef),
+  $serverAdmin = hiera('apacheconf::install::serverAdmin', 'root@localhost'),
+  $defaultLogLevel = hiera('apacheconf::install::defaultLogLevel', 'info'),
   ) {
 
   $vtierHome  = "${prefix}/${vtier}"
@@ -21,6 +23,7 @@ class apacheconf::install (
     path    => '/bin',
   }
 
+  # might need to create $apacheLink/logs/$daemon but apache may do it
   file { $apacheLink :
     ensure  => 'link',
     path    => $apacheLink,
@@ -30,8 +33,15 @@ class apacheconf::install (
 
   file { $scriptDir :
     ensure  => 'directory',
-    group   => "${vtier}n",
     owner   => $vtier,
+    group   => "${vtier}n",
+    require => Exec['install Apache'],
+  }
+
+  file { $confRoot :
+    ensure  => 'directory',
+    owner   => $vtier,
+    group   => "${vtier}n",
     require => Exec['install Apache'],
   }
 
@@ -43,8 +53,65 @@ class apacheconf::install (
     'FM-PCC'    => {},
     'FM-SJ-SSL' => {},
     'SSL'       => {},
-    'WCS-SSL'   => {},
+    'WCA-SSL'   => {},
   }
-  $defaults = { daemon => $daemon, vtier => $vtier, scriptDir => $scriptDir}
-  create_resources(apacheconf::script, $scripts, $defaults)
+  $scriptsDefaults = {
+    daemon    => $daemon,
+    vtier     => $vtier,
+    scriptDir => $scriptDir,
+  }
+  create_resources(apacheconf::script, $scripts, $scriptsDefaults)
+
+  $httpdConfs = {
+    'MAIN'    => {
+      port    => '8780',
+      wlsHost => 'zltv1009.vci.att.com',
+      wlsPort => '7008',
+    },
+    'CAMAIN1'   => {
+      port    => '8760',
+      wlsHost => 'zltv1018.vci.att.com',
+      wlsPort => '7038',
+    },
+    'CASTAGING' => {
+      port    => '8750',
+      wlsHost => 'zldv0990.vci.att.com',
+      wlsPort => '7056',
+    },
+    'FM-SSL'    => {
+      port    => '8790',
+      wlsHost => 'zldv0987.vci.att.com',
+      wlsPort => '7018',
+    },
+    'PCC'    => {
+      port    => '9470',
+      wlsHost => 'zltv1009.vci.att.com',
+      wlsPort => '7028',
+    },
+    'SJ-SSL' => {
+      port    => '8770',
+      wlsHost => 'd1c1m34.vci.att.com',
+      wlsPort => '7068',
+    },
+    'SSL'       => {
+      port    => '8890',
+      wlsHost => 'zltv1009.vci.att.com',
+      wlsPort => '7008',
+    },
+    'WCA-SSL'   => {
+      port    => '9990',
+      wlsHost => 'zltv1009.vci.att.com',
+      wlsPort => '7028',
+    },
+  }
+  $httpdConfDefaults = {
+    daemon      => $daemon,
+    vtier       => $vtier,
+    confRoot    => $confRoot,
+    vtierHome   => $vtierHome,
+    apacheLink  => $apacheLink,
+    serverAdmin => $serverAdmin,
+    logLevel  => $defaultLogLevel,
+  }
+  create_resources(apacheconf::httpdconf, $httpdConfs, $httpdConfDefaults)
 }

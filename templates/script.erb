@@ -9,11 +9,8 @@
 ######################################################################
 
 OPTION=$1
-#DAEMON=Bce8
 DAEMON=<%=@daemon%>
-#APACHE_HOME=/opt/app/t1c1w13/Apache
 APACHE_HOME=/opt/app/<%=@vtier-%>/Apache
-#APACHE_CONFIG=$APACHE_HOME/conf/Bce8/httpd_${DAEMON}.conf
 APACHE_CONFIG=$APACHE_HOME/conf/${DAEMON}/httpd_${DAEMON}.conf
    case $OPTION in
 
