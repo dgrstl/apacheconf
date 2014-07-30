@@ -12,7 +12,7 @@ class apacheconf::install (
   $apacheRoot = "${vtierHome}/Apache${version}"
   $apacheLink = "${vtierHome}/Apache"
   $scriptDir  = "${apacheRoot}/CONTROL"
-  $confDir    = "${apacheRoot}/conf"
+  $confRoot    = "${apacheRoot}/conf"
 
   exec { 'install Apache':
     command => "tar xvf ${source}/Apache${version}.tar.gz",
@@ -35,13 +35,6 @@ class apacheconf::install (
     require => Exec['install Apache'],
   }
 
-  file { $confDir :
-    ensure  => 'directory',
-    group   => "${vtier}n",
-    owner   => $vtier,
-    require => Exec['install Apache'],
-  }
-
   $scripts = {
     'MAIN'      => {},
     'CAMAIN1'   => {},
@@ -52,6 +45,6 @@ class apacheconf::install (
     'SSL'       => {},
     'WCS-SSL'   => {},
   }
-  $defaults = { daemon => $daemon, vtier => $vtier, }
+  $defaults = { daemon => $daemon, vtier => $vtier, scriptDir => $scriptDir}
   create_resources(apacheconf::script, $scripts, $defaults)
 }

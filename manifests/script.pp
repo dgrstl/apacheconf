@@ -1,4 +1,4 @@
-define apacheconf::script($daemon, $vtier) {
+define apacheconf::script($daemon, $vtier, $scriptDir) {
 
   $fname_base = concat(['APACHE-'],[upcase($daemon)])
 
@@ -8,7 +8,7 @@ define apacheconf::script($daemon, $vtier) {
     $fname = "${fname_base}-${name}"
   }
 
-  file { "/opt/app/${vtier}/Apache/CONTROL/${fname}":
+  file { "${scriptDir}/${fname}":
     owner   => $vtier,
     group   => "${vtier}n",
     mode    => '0744',
