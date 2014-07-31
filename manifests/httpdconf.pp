@@ -1,6 +1,7 @@
 define apacheconf::httpdconf(
   $daemon,
   $vtier,
+  $vtierGroup,
   $vtierHome,
   $confRoot,
   $apacheLink,
@@ -20,14 +21,14 @@ define apacheconf::httpdconf(
   file { $confDir :
     ensure  => 'directory',
     owner   => $vtier,
-    group   => "${vtier}n",
+    group   => $vtierGroup,
     mode    => '0644',
   }
 
   file { "${confDir}/httpd_${daemon}.conf" :
     ensure  => 'file',
     owner   => $vtier,
-    group   => "${vtier}n",
+    group   => $vtierGroup,
     mode    => '0644',
     content => template('apacheconf/httpdconf.erb'),
   }
