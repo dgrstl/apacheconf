@@ -1,6 +1,14 @@
-define apacheconf::script($daemon, $vtier, $scriptDir) {
+define apacheconf::script(
+  $daemon     = undef,
+  $vtier      = undef,
+  $vtierGroup = $vtier,
+  $scriptDir  = $scriptDir,
+) {
 
-  $fname_base = concat(['APACHE-'],[upcase($daemon)])
+  #$fname_base = concat(['APACHE-'],[upcase($daemon)])
+  $daemonupper = upcase($daemon)
+  $fname_base  = "APACHE-${daemonupper}"
+  #$fname_base = inline_template("<%= scope.lookupvar('f') %>")
 
   if ($name == 'MAIN') {
     $fname = $fname_base
@@ -9,8 +17,9 @@ define apacheconf::script($daemon, $vtier, $scriptDir) {
   }
 
   file { "${scriptDir}/${fname}":
+    ensure  => 'file',
     owner   => $vtier,
-    group   => "${vtier}n",
+    group   => $vtierGroup,
     mode    => '0744',
     content => template('apacheconf/script.erb'),
   }
