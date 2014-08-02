@@ -382,7 +382,7 @@ DocumentRoot "<%=apacheLink%>/htdocs"
 # logged here.  If you *do* define an error logfile for a <VirtualHost>
 # container, that host's errors will be logged there and not here.
 #
-ErrorLog "|<%=apacheLink%>/bin/rotatelogs -l <%=@apacheLink%>/logs/<%=daemon%>/error-%Y%m%d.log 86400"
+ErrorLog "|<%=apacheLink%>/bin/rotatelogs -l <%=@logDir%>/error-%Y%m%d.log 86400"
 
 #
 # LogLevel: Control the number of messages logged to the error_log.

@@ -4,6 +4,7 @@ define apacheconf::httpdconf(
   $vtierGroup,
   $vtierHome,
   $confRoot,
+  $logRoot,
   $apacheLink,
   $port,
   $wlsHost,
@@ -14,11 +15,20 @@ define apacheconf::httpdconf(
 
   if ($name == 'MAIN') {
     $confDir = "${confRoot}/${daemon}"
+    $logDir  = "${logRoot}/${daemon}"
   } else {
     $confDir = "${confRoot}/${daemon}-${name}"
+    $logDir  = "${logRoot}/${daemon}-${name}"
   }
 
   file { $confDir :
+    ensure  => 'directory',
+    owner   => $vtier,
+    group   => $vtierGroup,
+    mode    => '0644',
+  }
+
+  file { $logDir :
     ensure  => 'directory',
     owner   => $vtier,
     group   => $vtierGroup,

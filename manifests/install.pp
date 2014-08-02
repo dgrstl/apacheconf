@@ -9,6 +9,7 @@ class apacheconf::install (
   $daemon          = undef,
   $scriptDir       = undef,
   $confRoot        = undef,
+  $logRoot         = undef,
   $apacheRoot      = undef,
   $apacheLink      = 'Apache',
   ) {
@@ -20,7 +21,13 @@ class apacheconf::install (
     path    => '/bin',
   }
 
-  # might need to create $apacheLink/logs/$daemon but apache may do it
+  file { $logRoot :
+    ensure  => 'directory',
+    owner   => $vtier,
+    group   => $vtierGroup,
+    require => Exec['install Apache'],
+  }
+
   file { $apacheLink :
     ensure  => 'link',
     path    => $apacheLink,

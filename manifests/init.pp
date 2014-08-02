@@ -23,6 +23,7 @@ class apacheconf (
   $apacheLink = "${vtierHome}/Apache"
   $scriptDir  = "${apacheRoot}/CONTROL"
   $confRoot   = "${apacheRoot}/conf"
+  $logRoot    = "${apacheRoot}/logs"
 
 
   class { 'apacheconf::install':
@@ -34,6 +35,7 @@ class apacheconf (
     daemon     => $daemon,
     scriptDir  => $scriptDir,
     confRoot   => $confRoot,
+    logRoot    => $logRoot,
     apacheRoot => $apacheRoot,
     apacheLink => $apacheLink,
   } ->
@@ -44,8 +46,12 @@ class apacheconf (
     vtierGroup => $vtierGroup,
     scriptDir  => $scriptDir,
     confRoot   => $confRoot,
+    logRoot    => $logRoot,
     apacheLink => $apacheLink,
-  } ~>
-  class { 'apacheconf::service': } ->
-  Class['apacheconf']
+  }
+  ~>
+  class { 'apacheconf::service':
+    daemon    => upcase($daemon),
+    scriptDir => $scriptDir,
+  }
 }
