@@ -3,14 +3,37 @@
 # This class is meant to be called from apacheconf
 # It ensure the service is running
 #
-class apacheconf::service {
+class apacheconf::service (
+  $scriptDir = undef,
+  $daemon    = undef,
+) {
 
-  /*
-  service { $module_skeleton::service_name:
+  $webservers = {
+    'MAIN'    => {
+    },
+    'CAMAIN1'   => {
+    },
+    'CASTAGING' => {
+    },
+    'FM-SSL'    => {
+    },
+    'FM-PCC'    => {
+    },
+    'FM-SJ-SSL' => {
+    },
+    'SSL'       => {
+    },
+    'WCA-SSL'   => {
+    },
+  }
+  $webserverDefaults = {
     ensure     => running,
+    provider   => base,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
+    scriptBase => "${scriptDir}/APACHE-${daemon}",
+    daemon     => $daemon,
   }
-  */
+  create_resources(apacheconf::webserver, $webservers, $webserverDefaults)
 }
