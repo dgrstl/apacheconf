@@ -1,0 +1,17 @@
+{
+  "name": "att-apacheconf",
+  "version": "0.1.0",
+  "author": "David Roberts <dr@puppetlabs.com>",
+  "summary": "Configure all necessary Apache HTTPD instances to support a given QA daemon",
+  "license": "Apache 2.0",
+  "source": "git@git.puppetlabs.net:seteam/attMiddleware/apacheconf",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+
