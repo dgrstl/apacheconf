@@ -48,7 +48,7 @@ class apacheconf (
     confRoot   => $confRoot,
     logRoot    => $logRoot,
     apacheLink => $apacheLink,
-  } ~>
+  } #~>
   #class { 'apacheconf::service':
   #  daemon    => upcase($daemon),
   #  scriptDir => $scriptDir,
