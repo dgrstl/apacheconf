@@ -8,24 +8,7 @@ class apacheconf::service (
   $daemon    = undef,
 ) {
 
-  $webservers = {
-    'MAIN'    => {
-    },
-    'CAMAIN1'   => {
-    },
-    'CASTAGING' => {
-    },
-    'FM-SSL'    => {
-    },
-    'FM-PCC'    => {
-    },
-    'FM-SJ-SSL' => {
-    },
-    'SSL'       => {
-    },
-    'WCA-SSL'   => {
-    },
-  }
+  $webservers = hiera_hash('apacheconf::config::scripts')
   $webserverDefaults = {
     ensure     => running,
     provider   => base,
