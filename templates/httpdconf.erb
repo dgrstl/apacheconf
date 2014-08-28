@@ -73,10 +73,15 @@ DebugConfigInfo On
 </IfModule>
 
 <% @locations.each do |location| -%>
-<Location <%=location[0]%>>
-SetHandler <%=location[1]['SetHandler']%>
+<% location.each do |uri, settings| -%>
+<Location <%= uri %>>
+<% settings.each do |setting, value| -%>
+<%= setting %> <%= value %>
+<% end -%>
+<% end -%>
 WebLogicHost <%=@wlsHost%>
 WebLogicPort <%=@wlsPort%>
+SetHandler weblogic-handler
 </Location>
 
 <% end %>

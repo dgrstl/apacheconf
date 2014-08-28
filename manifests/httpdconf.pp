@@ -37,7 +37,7 @@ define apacheconf::httpdconf(
 
   # Apache LoadModules and Locations used in the httpdconf.erb template below
   $loadModules = hiera_array('apacheconf::templates::httpdconf::loadmodules')
-  $locations = hiera_hash('apacheconf::templates::httpdconf::locations')
+  $locations = hiera_array('apacheconf::templates::httpdconf::locations')
 
   file { "${confDir}/httpd_${daemon}.conf" :
     ensure  => 'file',
