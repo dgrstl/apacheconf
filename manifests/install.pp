@@ -1,4 +1,9 @@
-# == Class module_skeleton::install
+# == Class: apacheconf::install
+#
+# Install Apache from source tarball into $vtierHome
+#
+# === Parameters
+#
 #
 class apacheconf::install (
   $source          = undef,

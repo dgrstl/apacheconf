@@ -1,11 +1,29 @@
-# == Class: module_skeleton
+# == Class: apacheconf
 #
-# Full description of class module_skeleton here.
+# Configure 1 or more Apache HTTPD instances as follows:
+#  - Install: Untar Apache tarball to $vtierHome
+#  - Configure: Create 1 start/stop script for each instance in
+#               ${vtierHome}/Apache/CONTROL
+#               Create 1 httpd.conf file for each instance in
+#               ${vtierHome}/Apache/conf/${daemon}
+#               Create 1 log directory for each instance in
+#               ${vtierHome}/Apache/logs
+#  - Service: Start each instance
 #
 # === Parameters
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
+# [*prefix*]
+#   Prefix for $vtierHome which is the installation root for Apache
+# [*vtier*]
+#   Service account name which owns Apache on this node
+# [*vtierGroup*]
+#   Service account group name which owns Apache on this node
+# [*daemon*]
+#   Daemon name (e.g. BCE[1-n], etc.)
+# [*source*]
+#   Location of Apache tarball for installation
+# [*version*]
+#   Apache version
 #
 class apacheconf (
   $prefix          = hiera('apacheconf::prefix', '/opt/app/'),
@@ -14,8 +32,6 @@ class apacheconf (
   $daemon          = hiera('apacheconf::daemon', undef),
   $source          = hiera('apacheconf::source', undef),
   $version         = hiera('apacheconf::version', undef),
-  $serverAdmin     = hiera('apacheconf::serverAdmin', 'root@localhost'),
-  $defaultLogLevel = hiera('apacheconf::defaultLogLevel', 'info'),
 ) inherits apacheconf::params {
 
   $vtierHome  = "${prefix}/${vtier}"
@@ -24,7 +40,6 @@ class apacheconf (
   $scriptDir  = "${apacheRoot}/CONTROL"
   $confRoot   = "${apacheRoot}/conf"
   $logRoot    = "${apacheRoot}/logs"
-
 
   class { 'apacheconf::install':
     source     => $source,
@@ -53,4 +68,5 @@ class apacheconf (
   #  daemon    => upcase($daemon),
   #  scriptDir => $scriptDir,
   #}
+  -> Class['apacheconf']
 }
