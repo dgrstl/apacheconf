@@ -1,0 +1,126 @@
+---
+apacheconf::vtier:                   't1c1m1116'
+apacheconf::vtier_group:             't1c1m1116'
+apacheconf::daemon:                  'bce8'
+apacheconf::version:                 '22'
+apacheconf::config::serverAdmin:     'ra9465@att.com'
+apacheconf::config::defaultLogLevel: 'err'
+apacheconf::config::scripts:
+  MAIN:       {}
+  CAMAIN1:    {}
+  CASTAGING:  {}
+  FM-SSL:     {}
+  FM-PCC:     {}
+  FM-SJ-SSL:  {}
+  SSL:        {}
+  WCA-SSL:    {}
+apacheconf::config::httpdConfs:
+  MAIN:
+    port:     '8780'
+    wlsHost:  'zltv1009.vci.att.com'
+    wlsPort:  '7008'
+  CAMAIN1:
+    port:     '8760'
+    wlsHost:  'zltv1018.vci.att.com'
+    wlsPort:  '7038'
+  CASTAGING:
+    port:     '8750'
+    wlsHost:  'zldv0990.vci.att.com'
+    wlsPort:  '7056'
+  FM-SSL:
+    port:     '8790'
+    wlsHost:  'zldv0987.vci.att.com'
+    wlsPort:  '7018'
+  PCC:
+    port:     '9470'
+    wlsHost:  'zltv1009.vci.att.com'
+    wlsPort:  '7028'
+  SJ-SSL:
+    port:     '8770'
+    wlsHost:  'd1c1m34.vci.att.com'
+    wlsPort:  '7068'
+  SSL:
+    port:     '8890'
+    wlsHost:  'zltv1009.vci.att.com'
+    wlsPort:  '7008'
+  WCA-SSL:
+    port:     '9990'
+    wlsHost:  'zltv1009.vci.att.com'
+    wlsPort:  '7028'
+apacheconf::templates::httpdconf::loadmodules:
+  - authn_file_module modules/mod_authn_file.so
+  - authn_dbm_module modules/mod_authn_dbm.so
+  - authn_anon_module modules/mod_authn_anon.so
+  - authn_dbd_module modules/mod_authn_dbd.so
+  - authn_default_module modules/mod_authn_default.so
+  - authz_host_module modules/mod_authz_host.so
+  - authz_groupfile_module modules/mod_authz_groupfile.so
+  - authz_user_module modules/mod_authz_user.so
+  - authz_dbm_module modules/mod_authz_dbm.so
+  - authz_owner_module modules/mod_authz_owner.so
+  - authz_default_module modules/mod_authz_default.so
+  - auth_basic_module modules/mod_auth_basic.so
+  - auth_digest_module modules/mod_auth_digest.so
+  - dbd_module modules/mod_dbd.so
+  - dumpio_module modules/mod_dumpio.so
+  - reqtimeout_module modules/mod_reqtimeout.so
+  - ext_filter_module modules/mod_ext_filter.so
+  - include_module modules/mod_include.so
+  - filter_module modules/mod_filter.so
+  - substitute_module modules/mod_substitute.so
+  - deflate_module modules/mod_deflate.so
+  - log_config_module modules/mod_log_config.so
+  - logio_module modules/mod_logio.so
+  - env_module modules/mod_env.so
+  - expires_module modules/mod_expires.so
+  - headers_module modules/mod_headers.so
+  - ident_module modules/mod_ident.so
+  - setenvif_module modules/mod_setenvif.so
+  - version_module modules/mod_version.so
+  - proxy_module modules/mod_proxy.so
+  - proxy_connect_module modules/mod_proxy_connect.so
+  - proxy_ftp_module modules/mod_proxy_ftp.so
+  - proxy_http_module modules/mod_proxy_http.so
+  - proxy_scgi_module modules/mod_proxy_scgi.so
+  - proxy_ajp_module modules/mod_proxy_ajp.so
+  - proxy_balancer_module modules/mod_proxy_balancer.so
+  - ssl_module modules/mod_ssl.so
+  - mime_module modules/mod_mime.so
+  - dav_module modules/mod_dav.so
+  - status_module modules/mod_status.so
+  - autoindex_module modules/mod_autoindex.so
+  - asis_module modules/mod_asis.so
+  - info_module modules/mod_info.so
+  - cgid_module modules/mod_cgid.so
+  - dav_fs_module modules/mod_dav_fs.so
+  - vhost_alias_module modules/mod_vhost_alias.so
+  - negotiation_module modules/mod_negotiation.so
+  - dir_module modules/mod_dir.so
+  - imagemap_module modules/mod_imagemap.so
+  - actions_module modules/mod_actions.so
+apacheconf::templates::httpdconf::locations:
+  - /ebiz/registration: {}
+  - /ebiz/sdnom: {}
+  - /Wca:
+      PathTrim: /dyn/dyn/b2bservlets
+  - /ebiz/billing: {}
+  - /ebiz/care: {}
+  - /ebizcare: {}
+  - /ebiz/dashboard: {}
+  - /rest: {}
+  - /smallbusiness: {}
+  - /ebiz/mobility: {}
+  - /browsebuy: {}
+  - /businesscare: {}
+  - /b2bglobal: {}
+  - /tools: {}
+  - /dyn: {}
+  - /platform:
+      PathPrepend: /dyn/dyn/b2bservlets
+  - /dyn/dyn/b2bservlets/SBDCLoginDispatch.dyn: {}
+  - /dyn:
+      PathPrepend: /dyn/dyn/b2bservlets
+  - /procurement:
+      PathPrepend: /dyn/dyn/b2bservlets
+  - /adminui: {}
+  - /AssetUI-Search: {}

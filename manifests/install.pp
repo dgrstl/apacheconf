@@ -4,6 +4,26 @@
 #
 # === Parameters
 #
+# [*source*]
+#   Location of Apache tarball for installation
+# [*version*]
+#   Apache version
+# [*vtier*]
+#   Service account name which owns Apache on this node
+# [*vtierHome*]
+#   Root directory for Apache installation
+# [*vtierGroup*]
+#   Service account group name which owns Apache on this node
+# [*daemon*]
+#   Daemon name (e.g. BCE[1-n], etc.)
+# [*scriptDir*]
+#   Directory for instance start/stop scripts
+# [*confRoot*]
+#   Root directory for instance httpd.conf files. Each instance
+#   will have an http.conf in ${vtierHome}/${apacheRoot}/conf/${daemon}/
+# [*logRoot*]
+#   Root directory for instance log directories.  Each instance
+#   will log to ${logRoot}/${daemon}
 #
 class apacheconf::install (
   $source          = undef,
